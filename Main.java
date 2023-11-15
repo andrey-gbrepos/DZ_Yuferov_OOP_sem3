@@ -25,11 +25,17 @@ public class Main {
    */
    private static void fillStreams (List <Stream> lstream){
         Random rnd = new Random();
+        
         for (int i = 0; i < 5; i++) {
+        List <String> groups = new ArrayList<>();
+              int countGr = rnd.nextInt(1,10);
+            for (int j = 0; j < countGr; j++) {
+              groups.add("Гр."+ Integer.toString(rnd.nextInt(100,300)));
+            }
         lstream.add(new Stream("Поток", 
-                              rnd.nextInt(100, 200), 
+                              rnd.nextInt(1, 10), 
                               rnd.nextInt(2000, 2023), 
-                              rnd.nextInt(15,30))); 
+                              groups)); 
         }
       }
       /**
@@ -37,15 +43,15 @@ public class Main {
        * @param lstream
        */
       private static void streamPrint (List <Stream> lstream){
-      System.out.println("№ потока Год нач.  Кол.групп");
+      System.out.println("№ потока Год нач.  Кол.групп  Список групп");
         for (int i = 0; i < lstream.size(); i++) {
           Stream stream = new Stream (lstream.get(i).getName(), 
                                       lstream.get(i).getNumStream(),
                                       lstream.get(i).getStartYearStream(),
-                                      lstream.get(i).getQuantityGroup());
+                                      lstream.get(i).getListGroups());
           Iterator <String> str =  stream;
           while (str.hasNext()) {
-            System.out.print(str.next() + "      ");
+            System.out.print(str.next() + "        ");
           }
           System.out.println();   
         }
@@ -59,7 +65,7 @@ public class Main {
       fillStreams(lstream);// Заполнение списка потоков
       streamPrint(lstream); // печать через итератор
 
-      System.out.println("Сортировка с помощью вызова сервиса из класса Controller");
+      System.out.println("Сортировка по количеству групп через класс Controller");
       Controller controller = new Controller(new StreamService (lstream));
       controller.serviceLst(); //Сортировка
       streamPrint(lstream);

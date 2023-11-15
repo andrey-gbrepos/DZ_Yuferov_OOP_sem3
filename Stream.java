@@ -1,25 +1,30 @@
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 
 public class Stream implements Iterator<String>{
     private String name;
     private Integer numStream;
     private Integer startYearStream;
+    private List <String> groups;
     private Integer quantityGroup;
 
-    public Stream(String name, Integer numStream, Integer startYearStream, Integer quantityGroup) {
+    public Stream(String name, Integer numStream, Integer startYearStream, List<String> groups) {
         this.name = name;
         this.numStream = numStream;
         this.startYearStream = startYearStream;
-        this.quantityGroup = quantityGroup;
+        this.groups = new ArrayList<>(groups);
+        quantityGroup = groups.size();
     }
 
     public Stream() {
         this.name = "unknown";
         this.numStream = 0;
         this.startYearStream = 2000;
-        this.quantityGroup = 0;
+        this.groups = new ArrayList<>();
+        quantityGroup = 0;
     }
 
     int index = 0;
@@ -35,6 +40,7 @@ public class Stream implements Iterator<String>{
             case 1: return Integer.toString(numStream);
             case 2: return Integer.toString(startYearStream);
             case 3: return Integer.toString(quantityGroup);
+            case 4: return groups.toString();
             default: return "";
         }
         
@@ -69,8 +75,12 @@ public class Stream implements Iterator<String>{
         return startYearStream;
     }
 
-    public void setQuantityGroup(Integer quantityGroup) {
-        this.quantityGroup = quantityGroup;
+    public void setListGroups(List<String> groups) {
+        this.groups = groups;
+    }
+
+    public List<String> getListGroups() {
+        return groups;
     }
 
     public Integer getQuantityGroup() {
